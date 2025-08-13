@@ -3,14 +3,13 @@ services:
     name: serial-bot-gsheets
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot_webhook.py
+    rootDir: ./python-bot        # <-- sửa thành thư mục chứa bot ('.' nếu ở root)
+    buildCommand: python3 -m pip install -r requirements.txt
+    startCommand: python3 bot_webhook.py
     autoDeploy: true
     envVars:
       - key: BOT_TOKEN
         sync: false
-      - key: TELEGRAM_WEBHOOK_SECRET
-        generateValue: true
       - key: GOOGLE_SERVICE_JSON
         sync: false
       - key: GOOGLE_SHEET_ID
@@ -19,5 +18,7 @@ services:
         value: ""
       - key: CACHE_TTL_SECONDS
         value: "300"
+      - key: TELEGRAM_WEBHOOK_SECRET
+        generateValue: true
       - key: TZ
         value: Asia/Ho_Chi_Minh
